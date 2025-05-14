@@ -5,28 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".CalendarActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="127dp">
+        android:background="#FFFFFF"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="156dp">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ponedeljek" />
+            android:text="April" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Torek" />
+            android:text="Maj" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sreda" />
+            android:text="Junij" />
     </com.google.android.material.tabs.TabLayout>
 
     <CalendarView
@@ -34,22 +36,58 @@
         android:layout_width="353dp"
         android:layout_height="432dp"
         tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="202dp" />
+        tools:layout_editor_absoluteY="234dp" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meni"
-        tools:layout_editor_absoluteX="299dp"
-        tools:layout_editor_absoluteY="19dp" />
+        android:layout_width="58dp"
+        android:layout_height="40dp"
+        android:background="#FE7771"
+        android:backgroundTint="#FE7771"
+        app:icon="@android:drawable/ic_menu_sort_by_size"
+        app:iconTint="#FFFEFE"
+        tools:layout_editor_absoluteX="346dp"
+        tools:layout_editor_absoluteY="9dp" />
 
-    <Switch
-        android:id="@+id/switch2"
+    <Button
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:text="Dan"
+        android:textColor="#000000"
+        app:rippleColor="#070707"
+        app:strokeColor="#00FFFFFF"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="108dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Mesec"
+        android:textColor="#070707"
+        tools:layout_editor_absoluteX="233dp"
+        tools:layout_editor_absoluteY="108dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="136dp"
+        android:layout_height="41dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Zemljevid"
+        android:textColor="#040404"
+        tools:layout_editor_absoluteX="203dp"
+        tools:layout_editor_absoluteY="49dp" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="136dp"
+        android:layout_height="41dp"
+        android:backgroundTint="#FE7771"
         android:text="Koledar"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="74dp" />
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="49dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
