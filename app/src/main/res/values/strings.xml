@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">gremov9</string>
+    <string name="app_name">Gremo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_event_page">EventPageActivity</string>
+    <string name="calendar">Koledar</string>
+    <string name="map">Zemljevid</string>
+    <string name="month">Mesec</string>
+    <string name="day">Dan</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
