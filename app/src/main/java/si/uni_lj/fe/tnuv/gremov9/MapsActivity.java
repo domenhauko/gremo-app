@@ -1,5 +1,6 @@
 package si.uni_lj.fe.tnuv.gremov9;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
@@ -19,7 +20,6 @@ import si.uni_lj.fe.tnuv.gremov9.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private ActivityMapsBinding binding;
 
     @Override
@@ -34,52 +34,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Calendar button
         Button calendarButton = findViewById(R.id.calendarButton);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, CalendarActivity.class);
-                startActivity(intent);
-            }
+        calendarButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapsActivity.this, CalendarActivity.class);
+            startActivity(intent);
         });
 
         //Map button
         Button mapButton = findViewById(R.id.mapButton);
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
+        mapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapsActivity.this, MapsActivity.class);
+            startActivity(intent);
         });
 
         //GREMO home button
         ImageButton gremoHomeButton = findViewById(R.id.gremoHomeButton);
-        gremoHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        gremoHomeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    /// Manipulates the map once available.
+    /// This callback is triggered when the map is ready to be used.
+    /// This is where we can add markers or lines, add listeners or move the camera. In this case,
+    /// we just add a marker near Sydney, Australia.
+    /// If Google Play services is not installed on the device, the user will be prompted to install
+    /// it inside the SupportMapFragment. This method will only be triggered once the user has
+    /// installed Google Play services and returned to the app.
     @Override
-    public void onMapReady(GoogleMap map) {
-        mMap = map;
+    public void onMapReady(@NonNull GoogleMap map) {
 
         // Example: Add a marker and move the camera
         LatLng location = new LatLng(46.0569, 14.5058); // Ljubljana
-        mMap.addMarker(new MarkerOptions().position(location).title("Marker in Ljubljana"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12));
+        map.addMarker(new MarkerOptions().position(location).title("Marker in Ljubljana"));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12));
     }
 
     // Forward lifecycle methods to the MapView
@@ -89,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override protected void onStop() { binding.mapView.onStop(); super.onStop(); }
     @Override protected void onDestroy() { binding.mapView.onDestroy(); super.onDestroy(); }
     @Override public void onLowMemory() { super.onLowMemory(); binding.mapView.onLowMemory(); }
-    @Override protected void onSaveInstanceState(Bundle outState) {
+    @Override protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         binding.mapView.onSaveInstanceState(outState);
     }

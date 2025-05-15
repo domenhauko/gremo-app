@@ -27,32 +27,30 @@ public class MainActivity extends AppCompatActivity {
 
         // Calendar button
         Button calendarButton = findViewById(R.id.calendarButton);
-        calendarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(intent);
-            }
+        calendarButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+            startActivity(intent);
         });
 
         //Map button
         Button mapButton = findViewById(R.id.mapButton);
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
+        mapButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(intent);
         });
 
         //GREMO home button
         ImageButton gremoHomeButton = findViewById(R.id.gremoHomeButton);
-        gremoHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        gremoHomeButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        //Začasen dogodek button
+        Button eventButton = findViewById(R.id.eventButton);
+        eventButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, EventPageActivity.class);
+            startActivity(intent);
         });
     }
 }

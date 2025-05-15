@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorOnPrimary">@color/pink</item>
         <item name="colorSecondary">@color/white</item>
+        <item name="android:fontFamily">@font/manrope</item>
 
 
     </style>
