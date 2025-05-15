@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".CalendarActivity">
+    android:background="#020202"
+    tools:context=".CalendarDayActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -17,35 +17,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabTextColor="#FFFFFF">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="April" />
+            android:text="Sreda" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Maj" />
+            android:text="Četrtek" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Junij" />
+            android:text="Petek" />
     </com.google.android.material.tabs.TabLayout>
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="356dp"
-        android:layout_height="549dp"
-        android:layout_marginTop="300dp"
-        android:focusedMonthDateColor="#FF746E"
-        android:theme="@style/CalendarWhiteText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/dayButton"
