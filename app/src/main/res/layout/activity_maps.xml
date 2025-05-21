@@ -73,4 +73,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="si.uni_lj.fe.tnuv.gremov9.calendar.CalendarFragment"
+        android:layout_width="409dp"
+        android:layout_height="724dp"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="166dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
