@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".EventPageActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Organizator / Lokacija  -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageButton"
+            android:layout_width="71dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@+id/editTextDate"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText"
+            app:shapeAppearanceOverlay="@style/RoundImage"
+            app:srcCompat="@drawable/kader_logo" />
+
+        <ImageButton
+            android:id="@+id/goBackButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/action_goback" />
+
+        <!-- Share Button -->
+        <ImageButton
+            android:id="@+id/shareButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/saveButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/action_share" />
+
+        <!-- Save Button -->
+        <ImageButton
+            android:id="@+id/saveButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bookmark_save" />
+
+        <!-- Event image -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/goBackButton"
+            app:shapeAppearanceOverlay="@style/RoundedImageViewStyle"
+            app:srcCompat="@drawable/mgl" />
+
+
+        <!-- Event Title -->
+        <EditText
+            android:id="@+id/editTextText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:hint="Naslov dogodka"
+            android:inputType="text"
+            android:text="Naslov dogodka"
+            android:textColor="@color/white"
+            android:textFontWeight="800"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
+
+        <!-- Date -->
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="283dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="52dp"
+            android:gravity="end"
+            android:hint="Datum"
+            android:inputType="date"
+            android:text="15. 5. 2025"
+            android:textColor="@color/pink"
+            android:textFontWeight="800"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@+id/editTextText"
+            app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+
+        <!-- Opis dogodka -->
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="370dp"
+            android:layout_height="163dp"
+            android:layout_marginTop="44dp"
+            android:text="“KDO, ČE NE MI?” je kulturni talk show ustvarjalne skupine Kdo je Oskar?. V zadnjih mesecih so se pogovarjali s številnimi gosti iz področja literature, glasbe, mode in filma. Ugotovili so marsi kaj zanimivega. \n\n  Junija je pa zdej zaključna žurka, kjer boš lahko pohengu z vsemi, ki so bili na talk show-u, da še ti dobiš mal vpogleda v našo sceno. Prid!"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+        <!-- Datum in ura -->
+
+        <!-- Lokacija -->
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextDate2"
+            app:layout_constraintEnd_toStartOf="@+id/editTextDate2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editTextDate2"
+            app:srcCompat="@drawable/noaction_calendar" />
+
+        <EditText
+            android:id="@+id/editTextDate2"
+            android:layout_width="283dp"
+            android:layout_height="63dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:hint="Datum"
+            android:inputType="date"
+            android:text="15. 5. 2025, 18:00"
+            android:textColor="@color/white"
+            android:textFontWeight="800"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="28dp"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextDate3"
+            app:layout_constraintEnd_toStartOf="@+id/editTextDate3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.811"
+            app:srcCompat="@drawable/noaction_location" />
+
+        <EditText
+            android:id="@+id/editTextDate3"
+            android:layout_width="291dp"
+            android:layout_height="69dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:hint="Datum"
+            android:inputType="date"
+            android:text="Kader, Grad Kodeljevo, Ulica Carla Benza 20"
+            android:textColor="@color/white"
+            android:textFontWeight="800"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate2" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView2"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="363dp"
+            android:layout_height="208dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

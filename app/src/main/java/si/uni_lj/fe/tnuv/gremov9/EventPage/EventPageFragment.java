@@ -1,4 +1,6 @@
 package si.uni_lj.fe.tnuv.gremov9.EventPage;
 
-public class EventPageFragment {
+import androidx.fragment.app.Fragment;
+
+public class EventPageFragment extends Fragment {
 }

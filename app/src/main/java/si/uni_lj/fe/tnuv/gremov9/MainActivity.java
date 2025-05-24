@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import si.uni_lj.fe.tnuv.gremov9.EventPage.EventPageFragment;
+import si.uni_lj.fe.tnuv.gremov9.Map.MapFragment;
+import si.uni_lj.fe.tnuv.gremov9.calendar.DayCalendarFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,29 +33,34 @@ public class MainActivity extends AppCompatActivity {
         // Calendar button
         Button calendarButton = findViewById(R.id.calendarButton);
         calendarButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new DayCalendarFragment())
+                    .commit();
         });
 
         //Map button
         Button mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new MapFragment())
+                    .commit();
         });
+
+
 
         //GREMO home button
         ImageButton gremoHomeButton = findViewById(R.id.gremoHomeButton);
         gremoHomeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
+            Toast.makeText(MainActivity.this, "You are already on the home screen", Toast.LENGTH_SHORT).show();
         });
+
 
         //Začasen dogodek button
         Button eventButton = findViewById(R.id.eventButton);
         eventButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, EventPageActivity.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new EventPageFragment())
+                    .commit();
         });
     }
 }
