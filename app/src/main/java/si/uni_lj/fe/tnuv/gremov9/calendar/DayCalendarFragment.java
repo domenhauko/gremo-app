@@ -15,9 +15,20 @@ import android.widget.ImageButton;
 
 import si.uni_lj.fe.tnuv.gremov9.MainActivity;
 import si.uni_lj.fe.tnuv.gremov9.MapsActivity;
+import si.uni_lj.fe.tnuv.gremov9.PrenosPodatkov;
 import si.uni_lj.fe.tnuv.gremov9.R;
 
+import android.widget.TextView;
+
+
+
+
 public class DayCalendarFragment extends Fragment {
+
+
+    // 2. Add this inside the class (below other fields, if any):
+    private TextView textViewEvents;
+
 
     public DayCalendarFragment() {
         // Required empty public constructor
@@ -83,5 +94,21 @@ public class DayCalendarFragment extends Fragment {
 
         // TabLayout is present and initialized in the layout, no need to bind if static
         // If dynamic behavior is needed, you can bind and add listeners
+
+        //povezava s PrenosPodatki
+        //povežemo s textView predelom
+        TextView textViewDayCalendar = view.findViewById(R.id.textViewDayCalendar);
+        // fetch JSON in update UI
+        String url = "https://novice.kulturnik.si/format/json";
+        new Thread(() -> {
+            // Use existing PrenosPodatkov class (pass getActivity() as context)
+            PrenosPodatkov pp = new PrenosPodatkov(url, requireActivity());
+            String rezultat = pp.prenesiPodatke(); // gets raw JSON or error message
+
+            requireActivity().runOnUiThread(() -> {
+                textViewDayCalendar.setText(rezultat); // Show result on screen
+            });
+        }).start();
+
     }
 }

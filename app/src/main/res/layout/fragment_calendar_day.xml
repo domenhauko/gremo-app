@@ -115,4 +115,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/gremo_logo_horizontal" />
 
+    <TextView
+        android:id="@+id/textViewDayCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dogodki dneva bodo prikazani tukaj"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="310dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
