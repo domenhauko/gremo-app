@@ -1,4 +1,4 @@
-package si.uni_lj.fe.tnuv.gremov9.Map;
+package si.uni_lj.fe.tnuv.gremov9;
 
 import android.os.Bundle;
 
