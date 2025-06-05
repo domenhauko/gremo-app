@@ -47,43 +47,24 @@ public class DayCalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button calendarButton = view.findViewById(R.id.calendarButton);
-        Button mapButton = view.findViewById(R.id.mapButton);
-        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
         Button dayButton = view.findViewById(R.id.dayButton);
         Button monthButton = view.findViewById(R.id.monthButton);
-        ImageButton menuButton = view.findViewById(R.id.menuButton);
 
+        /*
         if (savedInstanceState == null) {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(R.id.contentContainer, new DayCalendarFragment()) // create this!
                     .commit();
         }
-
+*/
         /*
         calendarButton.setOnClickListener(v -> {
             // Already in calendar view, optionally show toast or do nothing
         });
         */
 
-        // klik na Zemljevid
-        mapButton.setOnClickListener(v -> {
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentContainer, new MapFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
 
-        // klik na logo/GREMO
-        gremoHomeButton.setOnClickListener(v -> {
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentContainer, new DayCalendarFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
 
         // klik na Mesec
         monthButton.setOnClickListener(v -> {
@@ -94,9 +75,7 @@ public class DayCalendarFragment extends Fragment {
                     .commit();
         });
 
-        menuButton.setOnClickListener(v -> {
-            // You can add functionality here (e.g., show a drawer, popup menu, etc.)
-        });
+
 
         //povezava s PrenosPodatki
         //povežemo s textView predelom

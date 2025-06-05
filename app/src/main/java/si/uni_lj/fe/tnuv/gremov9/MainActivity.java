@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // menu button - ZAENKRAT VODI NA MAPFRAGMENT - POPRAVI!!
-        Button menuButton = findViewById(R.id.menuButton);
+        ImageButton menuButton = findViewById(R.id.menuButton);
         mapButton.setOnClickListener(v -> {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new MapFragment())
@@ -70,12 +70,5 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //Začasen dogodek button
-        Button eventButton = findViewById(R.id.eventButton);
-        eventButton.setOnClickListener(v -> {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new EventPageFragment())
-                    .commit();
-        });
     }
 }

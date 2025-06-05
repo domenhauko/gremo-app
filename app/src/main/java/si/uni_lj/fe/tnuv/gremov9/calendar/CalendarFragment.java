@@ -42,13 +42,9 @@ public class CalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Calendar button
-        Button calendarButton = view.findViewById(R.id.calendarButton);
-        Button mapButton = view.findViewById(R.id.mapButton);
-        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
+
         Button dayButton = view.findViewById(R.id.dayButton);
         Button monthButton = view.findViewById(R.id.monthButton);
-        ImageButton menuButton = view.findViewById(R.id.menuButton);
 
         if (savedInstanceState == null) {
             getChildFragmentManager()
@@ -63,26 +59,6 @@ public class CalendarFragment extends Fragment {
         });
         */
 
-        // zamenjava na map = klik na Zemljevid
-        mapButton.setOnClickListener(v -> {
-            // Dynamically load MapFragment inside the container - to je nova instance fragemnta za zemljevid
-            // (so that you can embed it dynamically into your CalendarFragment UI.)
-            //insert the map fragment into the placeholder
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentContainer, new MapFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
-
-        // gremo home button = klik na Gremo
-        gremoHomeButton.setOnClickListener(v -> {
-            getChildFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.contentContainer, new DayCalendarFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
 
         // dan button = klik na Dan
         dayButton.setOnClickListener(v -> {
