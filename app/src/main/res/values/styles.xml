@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="CalendarWhiteText">
+    <style name="Theme.Gremov9." parent="Base.Theme.Gremov9" />
+
+    <style name="CalendarWhiteText" parent="android:Widget.CalendarView">
         <item name="android:dateTextAppearance">@style/CalendarDateTextWhite</item>
         <!-- For the week day labels (Mon, Tue, etc.) -->
         <item name="android:weekDayTextAppearance">@style/CalendarWeekDayTextWhite</item>
         <!-- For the month name (less direct, often inherited or controlled by primary text color) -->
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item> <!-- May affect other elements too -->
-        <item name="android:focusedMonthDateColor">@color/pink</item>
+        <item name="android:focusedMonthDateColor">@color/white</item>
+        <item name="android:weekNumberColor">@android:color/black</item>
+        <item name="android:selectedWeekBackgroundColor">@color/white</item>
+        <item name="android:unfocusedMonthDateColor">@android:color/white</item>
+        <item name="android:selectedDateVerticalBar">@android:color/transparent</item>
     </style>
 
     <style name="CalendarDateTextWhite" parent="TextAppearance.AppCompat.Medium">

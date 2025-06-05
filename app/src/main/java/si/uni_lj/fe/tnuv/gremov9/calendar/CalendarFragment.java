@@ -1,6 +1,5 @@
 package si.uni_lj.fe.tnuv.gremov9.calendar;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +13,7 @@ import android.widget.ImageButton;
 
 import org.jetbrains.annotations.Nullable;
 
-import si.uni_lj.fe.tnuv.gremov9.MainActivity;
-import si.uni_lj.fe.tnuv.gremov9.MapsActivity;
+import si.uni_lj.fe.tnuv.gremov9.Map.MapFragment;
 import si.uni_lj.fe.tnuv.gremov9.R;
 
 public class CalendarFragment extends Fragment {
@@ -46,22 +44,55 @@ public class CalendarFragment extends Fragment {
 
         // Calendar button
         Button calendarButton = view.findViewById(R.id.calendarButton);
+        Button mapButton = view.findViewById(R.id.mapButton);
+        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
+        Button dayButton = view.findViewById(R.id.dayButton);
+        Button monthButton = view.findViewById(R.id.monthButton);
+        ImageButton menuButton = view.findViewById(R.id.menuButton);
+
+        if (savedInstanceState == null) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new CalendarFragment()) // create this!
+                    .commit();
+        }
+
+        /*
         calendarButton.setOnClickListener(v -> {
             // You are already on the calendar screen; this can be empty or show a toast
         });
+        */
 
-        // Map button
-        Button mapButton = view.findViewById(R.id.mapButton);
+        // zamenjava na map = klik na Zemljevid
         mapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MapsActivity.class);
-            startActivity(intent);
+            // Dynamically load MapFragment inside the container - to je nova instance fragemnta za zemljevid
+            // (so that you can embed it dynamically into your CalendarFragment UI.)
+            //insert the map fragment into the placeholder
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new MapFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
-        // gremo home button
-        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
+        // gremo home button = klik na Gremo
         gremoHomeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new DayCalendarFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
+        // dan button = klik na Dan
+        dayButton.setOnClickListener(v -> {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new DayCalendarFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
     }
+
+
 }

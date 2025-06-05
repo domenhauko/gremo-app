@@ -30,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // naloži default fragment - to je DayCalendarFragment
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new DayCalendarFragment())
+                    .commit();
+        }
+
         // Calendar button
         Button calendarButton = findViewById(R.id.calendarButton);
         calendarButton.setOnClickListener(v -> {
@@ -40,6 +47,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Map button
         Button mapButton = findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(v -> {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new MapFragment())
+                    .commit();
+        });
+
+        // menu button - ZAENKRAT VODI NA MAPFRAGMENT - POPRAVI!!
+        Button menuButton = findViewById(R.id.menuButton);
         mapButton.setOnClickListener(v -> {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new MapFragment())

@@ -5,8 +5,16 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#020202"
-    tools:context=".CalendarDayActivity">
+    android:background="#020202">
+
+    <FrameLayout
+        android:id="@+id/contentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -121,6 +129,7 @@
         android:layout_height="wrap_content"
         android:text="Dogodki dneva bodo prikazani tukaj"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="310dp" />
+        tools:layout_editor_absoluteY="310dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

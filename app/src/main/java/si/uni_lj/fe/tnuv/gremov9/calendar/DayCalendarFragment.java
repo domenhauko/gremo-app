@@ -1,6 +1,5 @@
 package si.uni_lj.fe.tnuv.gremov9.calendar;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import si.uni_lj.fe.tnuv.gremov9.MainActivity;
-import si.uni_lj.fe.tnuv.gremov9.MapsActivity;
+import si.uni_lj.fe.tnuv.gremov9.Map.MapFragment;
 import si.uni_lj.fe.tnuv.gremov9.PrenosPodatkov;
 import si.uni_lj.fe.tnuv.gremov9.R;
 
@@ -49,51 +47,56 @@ public class DayCalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Calendar button
         Button calendarButton = view.findViewById(R.id.calendarButton);
+        Button mapButton = view.findViewById(R.id.mapButton);
+        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
+        Button dayButton = view.findViewById(R.id.dayButton);
+        Button monthButton = view.findViewById(R.id.monthButton);
+        ImageButton menuButton = view.findViewById(R.id.menuButton);
+
+        if (savedInstanceState == null) {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new DayCalendarFragment()) // create this!
+                    .commit();
+        }
+
+        /*
         calendarButton.setOnClickListener(v -> {
             // Already in calendar view, optionally show toast or do nothing
         });
+        */
 
-        // Map button
-        Button mapButton = view.findViewById(R.id.mapButton);
+        // klik na Zemljevid
         mapButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MapsActivity.class);
-            startActivity(intent);
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new MapFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
-        // GREMO home button
-        ImageButton gremoHomeButton = view.findViewById(R.id.gremoHomeButton);
+        // klik na logo/GREMO
         gremoHomeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new DayCalendarFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
-        // Month button (to switch to month view)
-        Button monthButton = view.findViewById(R.id.monthButton);
+        // klik na Mesec
         monthButton.setOnClickListener(v -> {
-            // Replace this with actual fragment switch to MonthCalendarFragment
-            // Example (if you're using FragmentManager):
-            // requireActivity().getSupportFragmentManager().beginTransaction()
-            //     .replace(R.id.fragment_container, new MonthCalendarFragment())
-            //     .addToBackStack(null)
-            //     .commit();
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentContainer, new CalendarFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
 
-        // Day button (already here, optional toast or state indication)
-        Button dayButton = view.findViewById(R.id.dayButton);
-        dayButton.setOnClickListener(v -> {
-            // Optionally show toast or ignore
-        });
-
-        // Menu button
-        Button menuButton = view.findViewById(R.id.menuButton);
         menuButton.setOnClickListener(v -> {
             // You can add functionality here (e.g., show a drawer, popup menu, etc.)
         });
-
-        // TabLayout is present and initialized in the layout, no need to bind if static
-        // If dynamic behavior is needed, you can bind and add listeners
 
         //povezava s PrenosPodatki
         //povežemo s textView predelom
