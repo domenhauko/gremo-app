@@ -1,64 +1,79 @@
 package si.uni_lj.fe.tnuv.gremov9;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link fragment_calendar#newInstance} factory method to
+ * Use the  factory method to
  * create an instance of this fragment.
  */
-public class fragment_calendar extends Fragment {
+public class CalendarFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public fragment_calendar() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_calendar.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static fragment_calendar newInstance(String param1, String param2) {
-        fragment_calendar fragment = new fragment_calendar();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public CalendarFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar, container, false);
+        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        Button monthButton = view.findViewById(R.id.buttonMonth);
+        Button dayButton = view.findViewById(R.id.buttonDay);
+
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.calendarNestedFragment, new DayCalendarFragment())
+                .commit();
+        updateActiveButton(dayButton, monthButton);
+
+        // Day button
+        dayButton.setOnClickListener(v -> {
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.calendarNestedFragment, new DayCalendarFragment())
+                    .commit();
+            updateActiveButton(dayButton, monthButton);
+        });
+
+        // Month button
+        monthButton.setOnClickListener(v -> {
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.calendarNestedFragment, new MonthCalendarFragment())
+                    .commit();
+            updateActiveButton(monthButton, dayButton);
+        });
+
+        return view;
     }
+    private void loadNestedFragment(Fragment fragment) {
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.calendarNestedFragment, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+    }
+
+    private void updateActiveButton(Button active, Button inactive) {
+        // Use requireContext() to get the Context inside a Fragment
+        active.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.pink));
+        inactive.setBackgroundTintList(ContextCompat.getColorStateList(requireContext(), R.color.dark_blue));
+    }
+
 }
