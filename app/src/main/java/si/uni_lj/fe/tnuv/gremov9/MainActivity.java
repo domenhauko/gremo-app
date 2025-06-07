@@ -13,8 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import si.uni_lj.fe.tnuv.gremov9.EventPage.EventPageFragment;
-import si.uni_lj.fe.tnuv.gremov9.Map.MapFragment;
+import si.uni_lj.fe.tnuv.gremov9.EventPageActivity;
+//import si.uni_lj.fe.tnuv.gremov9.eventPage.EventPageActivity;
+import si.uni_lj.fe.tnuv.gremov9.MapFragment;
 import si.uni_lj.fe.tnuv.gremov9.calendar.DayCalendarFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,9 +59,14 @@ public class MainActivity extends AppCompatActivity {
         //Začasen dogodek button
         Button eventButton = findViewById(R.id.eventButton);
         eventButton.setOnClickListener(v -> {
+            Intent eventPage = new Intent(MainActivity.this, EventPageActivity.class);
+            startActivity(eventPage);
+            /*
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new EventPageFragment())
+                    .replace(R.id.fragment_container, new EventPageActivity())
                     .commit();
+        */
         });
+
     }
 }
