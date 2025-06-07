@@ -45,6 +45,11 @@ dependencies {
     implementation(libs.play.services.maps)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
+
+    // Glide
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

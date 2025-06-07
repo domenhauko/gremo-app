@@ -75,7 +75,7 @@
 
 
         <!-- Event Title -->
-        <EditText
+        <TextView
             android:id="@+id/editTextText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/imageView2" />
 
         <!-- Date -->
-        <EditText
+        <TextView
             android:id="@+id/editTextDate"
             android:layout_width="283dp"
             android:layout_height="63dp"
@@ -120,8 +120,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
-        <!-- Datum in ura -->
-
         <!-- Lokacija -->
 
         <ImageView
@@ -135,13 +133,13 @@
             app:layout_constraintTop_toTopOf="@+id/editTextDate2"
             app:srcCompat="@drawable/noaction_calendar" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextDate2"
             android:layout_width="283dp"
             android:layout_height="63dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:hint="Datum"
+            android:hint="Datum in ura"
             android:inputType="date"
             android:text="15. 5. 2025, 18:00"
             android:textColor="@color/white"
@@ -165,13 +163,13 @@
             app:layout_constraintVertical_bias="0.811"
             app:srcCompat="@drawable/noaction_location" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTextDate3"
             android:layout_width="291dp"
             android:layout_height="69dp"
             android:layout_marginTop="28dp"
             android:gravity="center"
-            android:hint="Datum"
+            android:hint="Lokacija"
             android:inputType="date"
             android:text="Kader, Grad Kodeljevo, Ulica Carla Benza 20"
             android:textColor="@color/white"
