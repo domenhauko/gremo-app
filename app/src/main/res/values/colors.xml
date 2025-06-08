@@ -4,4 +4,5 @@
     <color name="white">#FFFFFF</color>
     <color name="dark_blue">#23252F</color>
     <color name="pink">#FF746E</color>
+    <color name="gremo_app_launch_background">#1A1B22</color>
 </resources>
