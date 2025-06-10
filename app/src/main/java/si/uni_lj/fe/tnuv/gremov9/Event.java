@@ -1,60 +1,49 @@
 package si.uni_lj.fe.tnuv.gremov9;
 
 public class Event {
-    private String title;
-    private String location;
-    private String date;
-    private String imageUrl;
-    private String description;
+    String title;
+    String description;
+    String date;
+    String locationString; // The location string from RSS
+    String imageUrl;
+    double latitude;
+    double longitude;
+    boolean hasCoordinates = false; // Flag to check if lat/lng are set
 
-    public Event(String title, String location, String date, String imageUrl, String description) {
+    // Constructor, getters, and setters
+    public Event(String title, String description, String date, String locationString, String imageUrl) {
         this.title = title;
-        this.location = location;
-        this.date = date;
-        this.imageUrl = imageUrl;
         this.description = description;
-    }
-
-    // Getters
-    public String getTitle() {
-        return title;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    // Setters (optional, if you need to modify the data)
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setDate(String date) {
         this.date = date;
-    }
-
-    public void setImageUrl(String imageUrl) {
+        this.locationString = locationString; // Store the original location string
         this.imageUrl = imageUrl;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    // Add methods to set and check coordinates
+    public void setCoordinates(double lat, double lng) {
+        this.latitude = lat;
+        this.longitude = lng;
+        this.hasCoordinates = true;
     }
+
+    public boolean hasCoordinates() {
+        return hasCoordinates;
+    }
+
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
+    public String getTitle() { return title; } // Ensure you have this
+    public String getName() { return title; } // Or getName() if you prefer
+    public String getDescription() { return description; }
+    public String getLocationString() { return locationString; }
+    public String getDate() { return date; }
+    public String getImageUrl() { return imageUrl; }
+
+
+    // You might need to add setters if you parse different parts at different times
+    public void setTitle(String title) { this.title = title; }
+    public void setDescription(String description) { this.description = description; }
+    public void setDate(String date) { this.date = date; }
+    public void setLocationString(String locationString) { this.locationString = locationString; } // Renamed for clarity
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
-

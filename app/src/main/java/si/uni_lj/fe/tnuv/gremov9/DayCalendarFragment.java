@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,9 @@ public class DayCalendarFragment extends Fragment {
     private EventAdapter adapter;
     private List<Event> allEvents = new ArrayList<>();
     private List<String> fullDates = new ArrayList<>();
+
+    private SharedViewModelDate sharedViewModelDate;
+    private SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     public DayCalendarFragment() {
         // Required empty public constructor
@@ -51,33 +55,78 @@ public class DayCalendarFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        setupTabs();
+        sharedViewModelDate = new ViewModelProvider(requireActivity()).get(SharedViewModelDate.class);
 
+        // Load all events in background thread
         new Thread(() -> {
             EventRssParser parser = new EventRssParser();
-            List<Event> events = parser.fetchEvents();
-            allEvents = events;
+            allEvents = parser.fetchEvents();
 
             requireActivity().runOnUiThread(() -> {
-                filterAndShowEvents(0); // default: first tab
+                // Initially setup tabs and show events for selectedDate or today if none
+                Date initialDate = sharedViewModelDate.getSelectedDate().getValue();
+                if (initialDate == null) {
+                    initialDate = new Date();
+                    sharedViewModelDate.setSelectedDate(initialDate);
+                }
+                setupTabs(initialDate);
+                selectTabForDate(initialDate);
+                filterAndShowEvents(fullDateFormat.format(initialDate));
             });
         }).start();
 
+        // Respond to tab selection changes: update sharedViewModelDate with new date
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                filterAndShowEvents(tab.getPosition());
+                int position = tab.getPosition();
+                if (position < fullDates.size()) {
+                    try {
+                        Date date = fullDateFormat.parse(fullDates.get(position));
+                        if (date != null) {
+                            sharedViewModelDate.setSelectedDate(date);  // update shared date
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override public void onTabUnselected(TabLayout.Tab tab) {}
             @Override public void onTabReselected(TabLayout.Tab tab) {}
         });
+
+        // Observe sharedViewModelDate changes (from MonthFragment or other source)
+        sharedViewModelDate.getSelectedDate().observe(getViewLifecycleOwner(), selectedDate -> {
+            if (selectedDate != null) {
+                updateTabsStartingFrom(selectedDate);
+                selectTabForDate(selectedDate);  // Select the correct tab
+                filterAndShowEvents(fullDateFormat.format(selectedDate));
+            }
+        });
     }
 
-    private void setupTabs() {
+    /**
+     * Selects the tab in tabLayout that matches the given date.
+     */
+    private void selectTabForDate(Date date) {
+        String dateStr = fullDateFormat.format(date);
+        int index = fullDates.indexOf(dateStr);
+        if (index != -1 && tabLayout.getSelectedTabPosition() != index) {
+            TabLayout.Tab tab = tabLayout.getTabAt(index);
+            if (tab != null) {
+                tab.select();
+            }
+        }
+    }
+
+    private void setupTabs(Date baseDate) {
+        tabLayout.removeAllTabs();
+        fullDates.clear();
+
         SimpleDateFormat labelFormat = new SimpleDateFormat("EEE dd.MM", Locale.getDefault());
-        SimpleDateFormat fullDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
+        calendar.setTime(baseDate);
 
         for (int i = 0; i < 3; i++) {
             tabLayout.addTab(tabLayout.newTab().setText(labelFormat.format(calendar.getTime())));
@@ -86,12 +135,14 @@ public class DayCalendarFragment extends Fragment {
         }
     }
 
-    private void filterAndShowEvents(int tabIndex) {
-        String selectedDate = fullDates.get(tabIndex);
+    private void updateTabsStartingFrom(Date selectedDate) {
+        setupTabs(selectedDate);
+    }
 
+    private void filterAndShowEvents(String selectedDateStr) {
         List<Event> filtered = new ArrayList<>();
         for (Event event : allEvents) {
-            if (event.getDate() != null && event.getDate().startsWith(selectedDate)) {
+            if (event.getDate() != null && event.getDate().startsWith(selectedDateStr)) {
                 filtered.add(event);
             }
         }

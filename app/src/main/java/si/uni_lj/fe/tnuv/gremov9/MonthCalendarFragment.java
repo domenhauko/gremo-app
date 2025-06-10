@@ -9,6 +9,7 @@ import android.widget.CalendarView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,8 @@ public class MonthCalendarFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Event> allEvents;
     private EventAdapter adapter;
+
+    private SharedViewModelDate sharedViewModelDate;
 
     public MonthCalendarFragment() {}
 
@@ -46,14 +49,25 @@ public class MonthCalendarFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewMonthEvents);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // 1. Load all events
+        sharedViewModelDate = new ViewModelProvider(requireActivity()).get(SharedViewModelDate.class);
+
+        // 1. Load all events in the background
         new Thread(() -> {
             EventRssParser parser = new EventRssParser();
             allEvents = parser.fetchEvents(); // load once
 
             requireActivity().runOnUiThread(() -> {
-                Date today = new Date(calendarView.getDate());
-                showEventsForDate(today);
+                // Get selected date from ViewModel if exists, otherwise use today
+                Date selectedDate = sharedViewModelDate.getSelectedDate().getValue();
+                if (selectedDate == null) {
+                    selectedDate = new Date(); // default to today
+                }
+
+                // Set calendar view to this date
+                calendarView.setDate(selectedDate.getTime(), false, true);
+
+                // Show events for selected date
+                showEventsForDate(selectedDate);
             });
         }).start();
 
@@ -61,9 +75,13 @@ public class MonthCalendarFragment extends Fragment {
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             Calendar selectedCal = Calendar.getInstance();
             selectedCal.set(year, month, dayOfMonth);
-            showEventsForDate(selectedCal.getTime());
+            Date selectedDate = selectedCal.getTime();
+
+            sharedViewModelDate.setSelectedDate(selectedDate); // Save the selected date
+            showEventsForDate(selectedDate);
         });
     }
+
 
     private void showEventsForDate(Date date) {
         if (allEvents == null) return;
