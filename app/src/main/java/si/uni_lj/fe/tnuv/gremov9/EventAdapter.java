@@ -58,6 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             intent.putExtra("event_description", event.getDescription());
             intent.putExtra("event_location", event.getLocationString());
             intent.putExtra("event_image_url", event.getImageUrl()); // optional, if you want to pass image
+            intent.putExtra("event_link", event.getLink());
 
             context.startActivity(intent);
         });

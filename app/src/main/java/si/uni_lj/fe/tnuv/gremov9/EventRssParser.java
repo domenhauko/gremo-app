@@ -39,11 +39,14 @@
                             name = parser.getName();
                             String namespace = parser.getNamespace();
                             if (name.equalsIgnoreCase("item")) {
-                                currentEvent = new Event("", "", "", "", "");
+                                currentEvent = new Event("", "", "", "", "", "");
                             } else if (currentEvent != null) {
                                 switch (name) {
                                     case "title":
                                         currentEvent.setTitle(parser.nextText());
+                                        break;
+                                    case "link":
+                                        currentEvent.setLink(parser.nextText());
                                         break;
                                     case "description":
                                         currentEvent.setDescription(parser.nextText());
