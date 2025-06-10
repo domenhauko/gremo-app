@@ -11,6 +11,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.text.ParseException;
@@ -18,13 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class EventPageActivity extends AppCompatActivity {
+public class EventPageActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private TextView titleEditText;
     private ShapeableImageView imageViewEvent;
-    private TextView editTextDate;
     private TextView editTextDate2;
     private TextView locationEditText;
+    private String title;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +40,15 @@ public class EventPageActivity extends AppCompatActivity {
 
         imageViewEvent = findViewById(R.id.imageView2);
         titleEditText = findViewById(R.id.editTextText);
-        //editTextDate = findViewById(R.id.editTextDate);
         editTextDate2 = findViewById(R.id.editTextDate2);
         locationEditText = findViewById(R.id.editTextDate3);
 
         Intent intent = getIntent();
-        String title = intent.getStringExtra("event_title");
+        title = intent.getStringExtra("event_title");
         String rawDate = intent.getStringExtra("event_date");
         String imageUrl = intent.getStringExtra("event_image_url");
         String description = intent.getStringExtra("event_description");
-        String location = intent.getStringExtra("event_location");
+        location = intent.getStringExtra("event_location");
 
         // Set title
         titleEditText.setText(title);
@@ -50,8 +56,8 @@ public class EventPageActivity extends AppCompatActivity {
         // Load image with Glide
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.mgl) // fallback image from your XML
-                .error(R.drawable.mgl)       // error fallback too
+                .placeholder(R.drawable.mgl)
+                .error(R.drawable.mgl)
                 .into(imageViewEvent);
 
         // Set the date and dateTime
@@ -61,33 +67,16 @@ public class EventPageActivity extends AppCompatActivity {
                 Date date = inputFormat.parse(rawDate);
 
                 if (date != null) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault());
-                    String formattedDate = dateFormat.format(date);
+                    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd. MM. yyyy, HH:mm", Locale.getDefault());
+                    String formattedDateTime = dateTimeFormat.format(date);
 
-                    // Check if time is exactly 00:00
-                    SimpleDateFormat hourFormat = new SimpleDateFormat("HH", Locale.getDefault());
-                    SimpleDateFormat minuteFormat = new SimpleDateFormat("mm", Locale.getDefault());
-                    int hour = Integer.parseInt(hourFormat.format(date));
-                    int minute = Integer.parseInt(minuteFormat.format(date));
-
-                    editTextDate2.setText(formattedDate);
-
-                    if (hour == 0 && minute == 0) {
-                        // Time is 00:00, so only show date in the second field as well
-                        editTextDate2.setText(formattedDate);
-                    } else {
-                        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd. MM. yyyy, HH:mm", Locale.getDefault());
-                        String formattedDateTime = dateTimeFormat.format(date);
-                        editTextDate2.setText(formattedDateTime);
-                    }
+                    editTextDate2.setText(formattedDateTime);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
-                editTextDate.setText(rawDate);
                 editTextDate2.setText(rawDate);
             }
         } else {
-            editTextDate.setText("Date not available");
             editTextDate2.setText("Date not available");
         }
 
@@ -97,10 +86,8 @@ public class EventPageActivity extends AppCompatActivity {
         ImageButton goBackButton = findViewById(R.id.goBackButton);
         goBackButton.setOnClickListener(v -> finish());
 
-        // Add this to fetch the event link from the intent
+        // Handle event link
         String eventLink = intent.getStringExtra("event_link");
-
-        // Set up website button
         Button websiteButton = findViewById(R.id.websiteButton);
         if (eventLink != null && !eventLink.isEmpty()) {
             websiteButton.setOnClickListener(v -> {
@@ -108,7 +95,26 @@ public class EventPageActivity extends AppCompatActivity {
                 startActivity(browserIntent);
             });
         } else {
-            websiteButton.setVisibility(View.GONE); // Hide if no link is available
+            websiteButton.setVisibility(View.GONE);
+        }
+
+        // Load and prepare map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.fragmentContainerView2);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        if (location != null && !location.isEmpty()) {
+            GeocodingHelper.geocodeLocation(this, location, latLng -> {
+                if (latLng != null) {
+                    googleMap.addMarker(new MarkerOptions().position(latLng).title(title));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
+                }
+            });
         }
     }
 }
