@@ -34,16 +34,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         // Initialize shared view model
         sharedViewModelDate = new ViewModelProvider(requireActivity()).get(SharedViewModelDate.class);
-
-        // Observe date changes
-        sharedViewModelDate.getSelectedDate().observe(getViewLifecycleOwner(), new Observer<LocalDate>() {
-            @Override
-            public void onChanged(LocalDate date) {
-                if (googleMap != null) {
-                    updateMapForDate(date);
-                }
-            }
-        });
     }
 
     @Override
@@ -53,25 +43,5 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         // Set initial map position
         LatLng ljubljana = new LatLng(46.0569, 14.5058);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ljubljana, 13f));
-
-        // If date already selected, load markers
-        LocalDate selectedDate = sharedViewModelDate.getSelectedDate().getValue();
-        if (selectedDate != null) {
-            updateMapForDate(selectedDate);
-        }
-    }
-
-    private void updateMapForDate(LocalDate date) {
-        googleMap.clear();
-
-        // Sample events for the selected date
-        List<Event> events = EventRepository.getEventsForDate(date); // Replace with your data source
-
-        for (Event event : events) {
-            LatLng eventLocation = new LatLng(event.getLatitude(), event.getLongitude());
-            googleMap.addMarker(new MarkerOptions()
-                    .position(eventLocation)
-                    .title(event.getTitle()));
-        }
     }
 }

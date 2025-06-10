@@ -54,7 +54,7 @@
                                         break;
                                     case "location":
                                     case "ical:location":
-                                        currentEvent.setLocation(parser.nextText());
+                                        currentEvent.setLocationString(parser.nextText());
                                         break;
                                     case "enclosure":
                                         String imageUrl = parser.getAttributeValue(null, "url");
@@ -71,8 +71,8 @@
                                 if (currentEvent.getDate() == null || currentEvent.getDate().isEmpty()) {
                                     currentEvent.setDate("Date not given"); // Fallback to empty string
                                 }
-                                if (currentEvent.getLocation() == null || currentEvent.getLocation().isEmpty()) {
-                                    currentEvent.setLocation("Location not given"); // Fallback to empty string
+                                if (currentEvent.getLocationString() == null || currentEvent.getLocationString().isEmpty()) {
+                                    currentEvent.setLocationString("Location not given"); // Fallback to empty string
                                 }
                                 events.add(currentEvent);
                             }

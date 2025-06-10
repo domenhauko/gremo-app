@@ -41,7 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         Event event = eventList.get(position);
         holder.textViewTitle.setText(event.getTitle());
         holder.textViewDate.setText(formatDate(event.getDate()));
-        holder.textViewLocation.setText(event.getLocation());
+        holder.textViewLocation.setText(event.getLocationString());
         holder.textViewDescription.setText(event.getDescription());
 
         // Load image using Glide (you can use Picasso or Coil instead)
@@ -56,7 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             intent.putExtra("event_title", event.getTitle());
             intent.putExtra("event_date", event.getDate()); // assuming event.getDate() returns Date
             intent.putExtra("event_description", event.getDescription());
-            intent.putExtra("event_location", event.getLocation());
+            intent.putExtra("event_location", event.getLocationString());
             intent.putExtra("event_image_url", event.getImageUrl()); // optional, if you want to pass image
 
             context.startActivity(intent);
