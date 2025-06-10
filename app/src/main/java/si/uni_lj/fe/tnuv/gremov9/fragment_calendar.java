@@ -25,7 +25,7 @@ import java.util.List;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
+class CalendarFragment extends Fragment {
 
     public CalendarFragment() {}
 
